@@ -139,9 +139,14 @@ process.nextTick = function (fun) {
         }
     }
     queue.push(new Item(fun, args));
+    // doesn't work on React Native on Android because the setTimeout function is replaced
+    // from the time this file is loaded until this code runs
+    // should be fine, I think it's just an optimization
+    /*
     if (queue.length === 1 && !draining) {
         runTimeout(drainQueue);
     }
+    */
 };
 
 // v8 likes predictible objects
